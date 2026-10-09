@@ -1,0 +1,80 @@
+---
+/**
+ * /adms/support - how to get help.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Support"
+  description="How to get help with ADMS: email support, release notes, documentation, and incident response."
+>
+  <section class="section">
+    <div class="container prose">
+      <h1>Support</h1>
+      <p class="lede">
+        ADMS is maintained by Adapdev directly. When something breaks,
+        the person who fixes it is the person who shipped it.
+      </p>
+
+      <h2>Email support</h2>
+      <p>
+        For general questions, bug reports, and feature requests, email
+        support via the Adapdev website
+        <a href="/contact">contact form</a>. Expect a reply within one
+        Australian business day (Monday to Friday, Eastern time).
+      </p>
+      <p>
+        When reporting a bug, please include your ADMS version
+        (<em>Help &rarr; About</em> in the desktop client, or the
+        <code>Server-Version</code> response header from the API), the
+        operating system, and the sequence of actions that produced the
+        issue.
+      </p>
+
+      <h2>Release notes and updates</h2>
+      <p>
+        Every ADMS release is documented in the
+        <a href={`${B}/release-notes`}>release notes</a>. The
+        <a href={`${B}/release-notes/rss.xml`}>RSS feed</a> is the
+        recommended way to be notified of a new release without being
+        on anyone's mailing list.
+      </p>
+
+      <h2>Security disclosures</h2>
+      <p>
+        Found a security issue? Please report it privately via the
+        <a href="/contact">contact form</a> with "SECURITY" in the subject
+        line, rather than opening a public GitHub issue. We follow a
+        responsible-disclosure process in line with the Australian
+        Notifiable Data Breaches scheme; see our incident-response
+        procedure for timing and detail.
+      </p>
+
+      <h2>On-site assistance (law firms, metro AU)</h2>
+      <p>
+        For law-firm customers in metropolitan Australia, on-site
+        onboarding and incident response are available. Travel is
+        charged separately; see the <a href={`${B}/pricing`}>pricing
+        page</a> for the base tier or get in touch for a quote.
+      </p>
+
+      <h2>Documentation</h2>
+      <p class="muted">
+        Searchable product documentation is coming to this site. In the
+        meantime, the ADMS installer ships with an offline operations
+        manual (<code>%ProgramFiles%\Adapdev\ADMS\docs</code>) covering
+        installation, backup, restore, rotation of signing keys, and
+        the incident-response runbook.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section { padding-block: var(--space-7); }
+  .prose { max-width: 72ch; }
+  .lede { font-size: var(--fs-lg); }
+</style>

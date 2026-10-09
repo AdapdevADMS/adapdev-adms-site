@@ -1,0 +1,13 @@
+{
+  "name": "ADMS - Adapdev Document Management System",
+  "short_name": "ADMS",
+  "description": "Document management for Australian sole traders, small businesses and law firms.",
+  "start_url": "/adms/",
+  "scope": "/adms/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d2a5f",
+  "icons": [
+    { "src": "/adms/favicon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}

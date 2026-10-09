@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adapdev.com.au/sitemap-index.xml

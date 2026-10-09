@@ -1,0 +1,74 @@
+---
+/**
+ * FeatureCard.astro - one feature pane for the Features and home pages.
+ */
+
+export interface Props {
+  title: string;
+  blurb: string;
+  icon?: 'folder' | 'office' | 'cloud' | 'lock' | 'desktop' | 'api';
+}
+
+const { title, blurb, icon = 'folder' } = Astro.props;
+
+/* Simple stroked glyphs, 24x24, inherit currentColor. */
+const paths: Record<NonNullable<Props['icon']>, string> = {
+  folder:
+    'M3 7 A2 2 0 0 1 5 5 H10 L12 7 H19 A2 2 0 0 1 21 9 V18 A2 2 0 0 1 19 20 H5 A2 2 0 0 1 3 18 Z',
+  office:
+    'M3 3 H21 V21 H3 Z M3 9 H21 M9 3 V21',
+  cloud:
+    'M6 18 A4 4 0 1 1 7 10 A5 5 0 0 1 17 10 A3.5 3.5 0 1 1 17 18 Z M12 14 V21 M9 18 L12 21 L15 18',
+  lock:
+    'M6 11 V8 A6 6 0 0 1 18 8 V11 M4 11 H20 V21 H4 Z',
+  desktop:
+    'M3 4 H21 V16 H3 Z M8 20 H16 M12 16 V20',
+  api:
+    'M4 7 H10 M4 12 H10 M4 17 H10 M14 7 L20 7 L20 17 L14 17 M14 10 L17 12 L14 14',
+};
+---
+
+<article class="feature">
+  <span class="feature__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d={paths[icon]} />
+    </svg>
+  </span>
+  <h3 class="feature__title">{title}</h3>
+  <p class="feature__blurb">{blurb}</p>
+</article>
+
+<style>
+  .feature {
+    padding: var(--space-6);
+    background: var(--brand-white);
+    border: 1px solid var(--brand-rule);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    height: 100%;
+  }
+
+  .feature__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--brand-tint);
+    color: var(--brand-navy-deep);
+  }
+
+  .feature__title {
+    margin: 0;
+    font-size: var(--fs-lg);
+    color: var(--brand-navy-deep);
+  }
+
+  .feature__blurb {
+    margin: 0;
+    color: var(--brand-text);
+  }
+</style>

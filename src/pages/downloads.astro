@@ -1,0 +1,140 @@
+---
+/**
+ * /adms/downloads - download the server-side API installer and the
+ * Windows desktop client installer.
+ *
+ * In production the /download/* URLs below are served by a Cloudflare Pages
+ * Function (see section 13 of the ADMS Website Build Guide) that mints a
+ * short-lived signed URL against the Cloudflare R2 bucket adapdev-downloads.
+ * While that function is not yet in place, these links will 404 - that is
+ * expected during initial development.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Downloads"
+  description="Download the ADMS server-side API installer and the Windows desktop client installer."
+>
+  <section class="section">
+    <div class="container prose">
+      <h1>Downloads</h1>
+      <p class="lede">
+        ADMS ships as two installers: a server-side installer that stands
+        up the REST API and database, and a desktop installer for the
+        Windows client. On a sole-trader laptop you run both on the same
+        machine; in a small-business or law-firm deployment the server
+        installer runs once on the office server, and the desktop installer
+        runs on each workstation.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="downloads">
+        <article class="download">
+          <h2>Server installer</h2>
+          <p>
+            Installs the ADMS API, creates the dedicated <code>adms$</code>
+            service account, provisions the SQLite or SQL Server database,
+            and seals the generated secrets into Windows DPAPI.
+          </p>
+          <ul class="meta">
+            <li><strong>Platform:</strong> Windows Server 2019 or later, Windows 10/11</li>
+            <li><strong>Database:</strong> SQL Server 2019+ or bundled SQLite</li>
+            <li><strong>Runtime:</strong> .NET 9 Desktop + ASP.NET Core (installed by the installer)</li>
+            <li><strong>Signed by:</strong> Adapdev Pty Ltd (Authenticode)</li>
+          </ul>
+          <div class="download__actions">
+            <a href="/download/adms-api-latest" class="btn">Download server installer</a>
+            <a href="/download/adms-api-latest.sha256" class="btn btn--ghost">SHA-256</a>
+          </div>
+        </article>
+
+        <article class="download">
+          <h2>Desktop client installer</h2>
+          <p>
+            Installs the WPF desktop application and the Word, Outlook,
+            Excel and PowerPoint add-ins. Points at an ADMS API URL on
+            first launch.
+          </p>
+          <ul class="meta">
+            <li><strong>Platform:</strong> Windows 10 or later</li>
+            <li><strong>Office:</strong> 2019 / 2021 / Microsoft 365</li>
+            <li><strong>Runtime:</strong> .NET 9 Desktop (installed by the installer)</li>
+            <li><strong>Signed by:</strong> Adapdev Pty Ltd (Authenticode)</li>
+          </ul>
+          <div class="download__actions">
+            <a href="/download/adms-desktop-latest" class="btn">Download desktop installer</a>
+            <a href="/download/adms-desktop-latest.sha256" class="btn btn--ghost">SHA-256</a>
+          </div>
+        </article>
+      </div>
+
+      <aside class="callout">
+        <h3>Verify your download</h3>
+        <p>
+          Every installer is accompanied by a published SHA-256 checksum.
+          To verify, open PowerShell in the folder you downloaded to and
+          run:
+        </p>
+        <pre><code>Get-FileHash .\adms-api-X.Y.Z.exe -Algorithm SHA256</code></pre>
+        <p>
+          The output must match the hash on the SHA-256 link above. If it
+          does not, do NOT run the installer and
+          <a href="/contact">tell us immediately</a>. Each installer is also
+          Authenticode-signed by Adapdev Pty Ltd; Windows will warn before
+          running an unsigned binary.
+        </p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section { padding-block: var(--space-7); }
+  .prose { max-width: 72ch; }
+  .lede { font-size: var(--fs-lg); }
+
+  .downloads {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-bottom: var(--space-7);
+  }
+
+  .download {
+    padding: var(--space-6);
+    background: var(--brand-white);
+    border: 1px solid var(--brand-rule);
+    border-radius: var(--radius-md);
+  }
+
+  .download h2 {
+    margin-top: 0;
+    color: var(--brand-navy-deep);
+  }
+
+  .meta {
+    list-style: none;
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+    background: var(--brand-tint-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-sm);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .meta strong {
+    color: var(--brand-navy-deep);
+  }
+
+  .download__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+</style>

@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+pnpm-store/
+
+# Build output
+dist/
+.astro/
+
+# Environment and secrets - NEVER commit any of these.
+# Secrets live in the 1Password ADAPDEV vault; CI reads them from
+# GitHub Actions encrypted secrets. See ADMS-Secret-Storage-Setup.docx.
+.env
+.env.*
+!.env.example
+
+# Cloudflare Wrangler (deploys, local state, cached auth)
+.wrangler/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and OS metadata
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local coverage / cache
+coverage/
+.cache/
+
+# PFX / PEM / key material - belt-and-braces
+*.pfx
+*.pem
+*.key
+*.crt

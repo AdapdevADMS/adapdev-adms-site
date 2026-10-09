@@ -1,0 +1,157 @@
+---
+/**
+ * /adms/features - full feature breakdown.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+---
+
+<BaseLayout
+  title="Features"
+  description="Every ADMS feature at a glance: client / matter organisation, Office integration, API + desktop, audit, backup, security."
+>
+  <section class="section">
+    <div class="container prose">
+      <h1>Features</h1>
+      <p class="lede">
+        ADMS pairs a REST API backend with a native Windows desktop client
+        and Office add-ins. What follows is the full feature list, grouped
+        by concern.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tinted">
+    <div class="container">
+      <h2>Organise</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="Client-centric"
+          blurb="Every document lives under a client. For law firms, clients contain matters; for tradies, clients contain jobs."
+          icon="folder"
+        />
+        <FeatureCard
+          title="Fast full-text search"
+          blurb="Find any document by content, filename, client, matter, or tag. Results appear as you type."
+          icon="folder"
+        />
+        <FeatureCard
+          title="Tags and metadata"
+          blurb="Custom metadata per document type. Required-field enforcement so filing is consistent across your team."
+          icon="folder"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Capture</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="Save from Word"
+          blurb="File → Save straight into ADMS, prompting for the client / matter. No separate upload step."
+          icon="office"
+        />
+        <FeatureCard
+          title="Save from Outlook"
+          blurb="Save an email, or its attachments, against a client or matter. Thread conversations stay linked."
+          icon="office"
+        />
+        <FeatureCard
+          title="Drag-and-drop import"
+          blurb="Drop any folder onto the desktop client; ADMS imports and (optionally) OCRs the contents."
+          icon="office"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tinted">
+    <div class="container">
+      <h2>Control</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="Per-user permissions"
+          blurb="Fine-grained permissions per client, matter and document type. Partners see trust files; juniors do not."
+          icon="lock"
+        />
+        <FeatureCard
+          title="Full audit log"
+          blurb="Every read, write and delete recorded with user, timestamp and IP. Required for law-firm compliance."
+          icon="lock"
+        />
+        <FeatureCard
+          title="Checkout / checkin"
+          blurb="Lock a document for exclusive editing. Automatic version history on every checkin."
+          icon="lock"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Integrate</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="REST API"
+          blurb="A documented REST API lets you script bulk imports, nightly reports, or integrate with your own tooling."
+          icon="api"
+        />
+        <FeatureCard
+          title="Office add-ins"
+          blurb="Native add-ins for Word, Outlook, Excel and PowerPoint - installed by the client installer."
+          icon="office"
+        />
+        <FeatureCard
+          title="OAuth to Xero / MYOB / Salesforce"
+          blurb="Pull client lists from your accounting system; push invoices back when ready. OAuth tokens stored encrypted."
+          icon="cloud"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tinted">
+    <div class="container">
+      <h2>Protect</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="On-premises deployment"
+          blurb="SQLite for sole traders; SQL Server for small business and law firms. You pick the deployment that fits."
+          icon="desktop"
+        />
+        <FeatureCard
+          title="DPAPI secret storage"
+          blurb="Secrets bound to the Windows service account on the ADMS server. See the secret-storage document for detail."
+          icon="lock"
+        />
+        <FeatureCard
+          title="Automated backup"
+          blurb="Scheduled backups to the destination of your choice (NAS, external drive, S3-compatible). Restore tested every quarter."
+          icon="cloud"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section { padding-block: var(--space-7); }
+  .section--tinted {
+    background: var(--brand-tint-2);
+    border-top: 1px solid var(--brand-rule);
+    border-bottom: 1px solid var(--brand-rule);
+  }
+  .prose { max-width: 72ch; }
+  .lede { font-size: var(--fs-lg); }
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+  .grid--3 {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+/**
+ * BaseLayout.astro - shared chrome for the ADMS product site.
+ *
+ * Mirrors the corporate site BaseLayout: head metadata, Open Graph,
+ * CSP meta, header, footer, skip link. The only material differences
+ * are the default title, description and OG image, which identify the
+ * ADMS product rather than Adapdev the company.
+ *
+ * Props:
+ *   title       - page-specific <title>; concatenated with "ADMS"
+ *   description - meta description (<=160 chars recommended)
+ *   image       - absolute URL to the Open Graph preview image
+ *   noindex     - when true, emits a robots noindex directive
+ */
+
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+
+import '../styles/global.css';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const SITE_NAME = 'ADMS';
+const LONG_NAME = 'Adapdev Document Management System';
+const DEFAULT_DESCRIPTION =
+  'ADMS is a .NET document management system for Australian sole traders, small businesses and law firms. On your hardware, integrated with Office.';
+const DEFAULT_OG_IMAGE = '/adms/og/adms-og.png';
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_OG_IMAGE,
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title === SITE_NAME ? `${SITE_NAME} — ${LONG_NAME}` : `${title} — ${SITE_NAME}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://adapdev.com.au').toString();
+const ogImage = new URL(image, Astro.site ?? 'https://adapdev.com.au').toString();
+
+/*
+ * Content Security Policy
+ * -----------------------
+ * Mirrors public/_headers so the policy is present on surfaces that strip
+ * response headers. The response-header version remains authoritative.
+ */
+const CSP = [
+  "default-src 'self'",
+  "img-src 'self' data:",
+  "style-src 'self' 'unsafe-inline'",
+  "script-src 'self'",
+  "connect-src 'self'",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={CSP} />
+    <meta name="color-scheme" content="light" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_AU" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.svg`} type="image/svg+xml" />
+    <link rel="manifest" href={`${import.meta.env.BASE_URL}/site.webmanifest`} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="ADMS - Release notes"
+      href={`${import.meta.env.BASE_URL}/release-notes/rss.xml`}
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

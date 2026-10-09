@@ -1,0 +1,214 @@
+---
+/**
+ * /adms - product overview.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const title = 'ADMS';
+const description =
+  'Adapdev Document Management System - organise client and matter paperwork, save straight from Office, on your hardware.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="hero__eyebrow">Adapdev Document Management System</p>
+      <h1 class="hero__title">
+        Your client paperwork, organised the way you already think about it.
+      </h1>
+      <p class="hero__lede">
+        ADMS gives Australian sole traders, small businesses and law firms a
+        single, searchable home for every document that belongs to a client,
+        a matter or a job. Save straight from Word or Outlook. Everything
+        stays on your hardware. No subscription, no exfiltration, no surprises.
+      </p>
+      <div class="hero__actions">
+        <a href={`${B}/features`} class="btn">See the features</a>
+        <a href={`${B}/downloads`} class="btn btn--ghost">Download ADMS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>What ADMS does for you</h2>
+      <div class="grid grid--3">
+        <FeatureCard
+          title="Client / matter organisation"
+          blurb="Every document lives inside the client (and matter, or job) it belongs to. Find anything in two clicks or one search."
+          icon="folder"
+        />
+        <FeatureCard
+          title="Office integration"
+          blurb="Word, Outlook, Excel and PowerPoint save directly into ADMS against the right client and matter - no drag-and-drop ritual."
+          icon="office"
+        />
+        <FeatureCard
+          title="On-premises by design"
+          blurb="Installs on your laptop, your desktop, or a small office server. Your data never leaves hardware you control."
+          icon="lock"
+        />
+        <FeatureCard
+          title="API + desktop client"
+          blurb="A REST API and a native Windows desktop app (WPF, Prism) ship together. SQL Server or SQLite, your choice."
+          icon="api"
+        />
+        <FeatureCard
+          title="Built for Australian compliance"
+          blurb="Designed around the Privacy Act 1988 and the Notifiable Data Breaches scheme. Audit logs out of the box."
+          icon="desktop"
+        />
+        <FeatureCard
+          title="No subscription, no cloud lock-in"
+          blurb="One-time licence per installation. You own your installer, your database and your documents."
+          icon="cloud"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tinted">
+    <div class="container">
+      <h2>Built for three kinds of operator</h2>
+      <div class="audience-grid">
+        <div class="audience" id="sole-traders">
+          <h3>Sole traders</h3>
+          <p>
+            Tradies and single-person operators. ADMS installs on your own
+            laptop with SQLite - no server to maintain. Keep every job's
+            paperwork organised by client, and surface it instantly when
+            you quote the next one.
+          </p>
+        </div>
+        <div class="audience" id="small-business">
+          <h3>Small businesses</h3>
+          <p>
+            Multi-person tradies and services teams. Shared document access
+            on your office network, with per-user permissions and audit
+            logging. Backed by SQL Server; integrates with the Office tools
+            your team already uses.
+          </p>
+        </div>
+        <div class="audience" id="law-firms">
+          <h3>Small / medium law firms</h3>
+          <p>
+            Matter-centric document management with the audit controls
+            your clients expect. OAuth integrations with Xero and MYOB for
+            trust and accounting flow. Supports Australian legal practice
+            management conventions out of the box.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="container cta__inner">
+      <h2>Ready to try it?</h2>
+      <p>
+        Download the installer, run it on a laptop, point it at a folder
+        of documents, and you'll be filing against clients inside ten minutes.
+      </p>
+      <div class="cta__actions">
+        <a href={`${B}/downloads`} class="btn">Download</a>
+        <a href={`${B}/pricing`} class="btn btn--ghost">See pricing</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-8) var(--space-7);
+    background:
+      radial-gradient(ellipse at top right, var(--brand-tint) 0%, transparent 60%),
+      var(--brand-white);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .hero__eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--brand-royal);
+    font-size: var(--fs-sm);
+  }
+
+  .hero__title {
+    margin: 0;
+    font-size: clamp(var(--fs-3xl), 5vw, var(--fs-4xl));
+    max-width: 22ch;
+  }
+
+  .hero__lede {
+    font-size: var(--fs-lg);
+    color: var(--brand-text);
+    max-width: 55ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .section {
+    padding-block: var(--space-7);
+  }
+
+  .section--tinted {
+    background: var(--brand-tint-2);
+    border-top: 1px solid var(--brand-rule);
+    border-bottom: 1px solid var(--brand-rule);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .audience-grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .audience h3 {
+    margin-top: 0;
+    color: var(--brand-navy-deep);
+    scroll-margin-top: 6rem;
+  }
+
+  .cta {
+    text-align: center;
+  }
+
+  .cta__inner > * {
+    margin-inline: auto;
+  }
+
+  .cta__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+  }
+</style>

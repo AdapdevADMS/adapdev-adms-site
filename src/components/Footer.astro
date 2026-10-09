@@ -1,0 +1,56 @@
+---
+/**
+ * Footer.astro - site-wide footer.
+ */
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="muted">
+      &copy; {year} Adapdev Pty Ltd. ADMS is an Adapdev product. ABN registered in Australia.
+    </p>
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href={`${B}/features`}>Features</a></li>
+        <li><a href={`${B}/pricing`}>Pricing</a></li>
+        <li><a href={`${B}/support`}>Support</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href={`${B}/release-notes/rss.xml`}>RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-8);
+    padding-block: var(--space-5);
+    border-top: 1px solid var(--brand-rule);
+    background: var(--brand-tint-2);
+    color: var(--brand-mute);
+    font-size: var(--fs-sm);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-nav a {
+    color: var(--brand-navy);
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+/**
+ * Dynamic release-notes route - /adms/release-notes/<slug>.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+export async function getStaticPaths() {
+  const releases = await getCollection('releaseNotes', ({ data }) => !data.draft);
+  return releases.map((r) => ({
+    params: { slug: r.slug },
+    props: { release: r },
+  }));
+}
+
+interface Props {
+  release: CollectionEntry<'releaseNotes'>;
+}
+
+const { release } = Astro.props;
+const { Content } = await release.render();
+
+const formatDate = (d: Date): string =>
+  d.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={release.data.title} description={release.data.description}>
+  <article class="section">
+    <div class="container prose">
+      <p class="back"><a href={`${B}/release-notes`}>&larr; All releases</a></p>
+
+      <div class="release-header">
+        <h1>{release.data.title}</h1>
+        <span class:list={['chip', `chip--${release.data.channel}`]}>
+          {release.data.channel}
+        </span>
+      </div>
+
+      <p class="meta">
+        <span class="version">v{release.data.version}</span>
+        &middot;
+        <time datetime={release.data.pubDate.toISOString()}>{formatDate(release.data.pubDate)}</time>
+      </p>
+
+      {release.data.highlights.length > 0 && (
+        <div class="callout">
+          <strong>Highlights</strong>
+          <ul>
+            {release.data.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </div>
+      )}
+
+      <div class="release-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .section { padding-block: var(--space-7); }
+  .prose { max-width: 68ch; }
+
+  .back { margin: 0 0 var(--space-5); }
+
+  .release-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .release-header h1 { margin: 0; }
+
+  .meta {
+    color: var(--brand-mute);
+    margin-bottom: var(--space-6);
+  }
+
+  .version {
+    font-family: var(--font-mono);
+    color: var(--brand-navy);
+  }
+
+  .release-body :global(h2) { margin-top: var(--space-6); }
+  .release-body :global(h3) { margin-top: var(--space-5); }
+
+  .release-body :global(blockquote) {
+    margin: var(--space-5) 0;
+    padding: var(--space-4) var(--space-5);
+    border-left: 4px solid var(--brand-bright);
+    background: var(--brand-tint);
+    border-radius: var(--radius-md);
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .chip--stable  { background: var(--brand-success-bg); color: var(--brand-success); }
+  .chip--preview { background: var(--brand-tint);       color: var(--brand-navy); }
+  .chip--beta    { background: var(--brand-warn-bg);    color: var(--brand-warn); }
+</style>

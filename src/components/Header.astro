@@ -1,0 +1,170 @@
+---
+/**
+ * Header.astro - ADMS site top navigation.
+ *
+ * The "Adapdev" link escapes back to the corporate site (absolute URL to
+ * the apex origin); every other link stays inside the ADMS section and
+ * prefixes `import.meta.env.BASE_URL` so it respects `base: '/adms'`.
+ */
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, ''); // '/adms' (no trailing slash)
+
+const nav = [
+  { href: `${B}/`,                label: 'Overview' },
+  { href: `${B}/features`,        label: 'Features' },
+  { href: `${B}/pricing`,         label: 'Pricing' },
+  { href: `${B}/downloads`,       label: 'Downloads' },
+  { href: `${B}/release-notes`,   label: 'Release notes' },
+  { href: `${B}/support`,         label: 'Support' },
+];
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string): boolean => {
+  const target = href.replace(/\/$/, '') || '/';
+  return target === current || (target !== `${B}` && current.startsWith(`${target}/`));
+};
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href={`${B}/`} class="brand" aria-label="ADMS - home">
+      <svg
+        class="brand__mark"
+        viewBox="0 0 48 48"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id="brandMarkG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2e8dd8" />
+            <stop offset="1" stop-color="#0d2a5f" />
+          </linearGradient>
+        </defs>
+        <circle cx="24" cy="24" r="22" fill="url(#brandMarkG)" />
+        <path d="M15 30 Q24 10 33 30" stroke="#4fa3de" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <circle cx="33" cy="18" r="3" fill="#fff" />
+      </svg>
+      <span class="brand__wordmark">
+        <span class="brand__wordmark-name">ADMS</span>
+        <span class="brand__wordmark-sub">by Adapdev</span>
+      </span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['nav__link', { 'nav__link--active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li class="nav__sep" aria-hidden="true" />
+        <li>
+          <a href="/" class="nav__link nav__link--escape">&larr; Adapdev</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--brand-white);
+    border-bottom: 1px solid var(--brand-rule);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: saturate(1.2) blur(6px);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-block: var(--space-3);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--brand-navy-deep);
+  }
+
+  .brand__mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand__wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .brand__wordmark-name {
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    letter-spacing: 0.02em;
+  }
+
+  .brand__wordmark-sub {
+    font-size: var(--fs-xs);
+    color: var(--brand-mute);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__sep {
+    width: 1px;
+    height: 1.2em;
+    background: var(--brand-rule);
+    margin-inline: var(--space-2);
+  }
+
+  .nav__link {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    color: var(--brand-navy);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition:
+      background var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .nav__link:hover,
+  .nav__link:focus-visible {
+    background: var(--brand-tint);
+    color: var(--brand-navy-deep);
+  }
+
+  .nav__link--active {
+    color: var(--brand-navy-deep);
+    background: var(--brand-tint);
+    box-shadow: inset 0 -2px 0 var(--brand-bright);
+  }
+
+  .nav__link--escape {
+    color: var(--brand-mute);
+    font-size: var(--fs-sm);
+  }
+</style>

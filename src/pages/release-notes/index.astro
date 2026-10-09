@@ -1,0 +1,155 @@
+---
+/**
+ * /adms/release-notes - release index, newest first.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const releases: CollectionEntry<'releaseNotes'>[] = (
+  await getCollection('releaseNotes', ({ data }) => !data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const formatDate = (d: Date): string =>
+  d.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title="Release notes"
+  description="Every ADMS release, newest first. Subscribe via RSS for release notifications."
+>
+  <section class="section">
+    <div class="container prose">
+      <h1>Release notes</h1>
+      <p class="lede">
+        Every ADMS release is documented here. Subscribe via the
+        <a href={`${B}/release-notes/rss.xml`}>RSS feed</a> to be notified
+        of new releases without being on a mailing list.
+      </p>
+
+      {releases.length === 0 ? (
+        <p class="muted">No releases yet - check back soon.</p>
+      ) : (
+        <ul class="releases">
+          {releases.map((r) => (
+            <li class="release">
+              <a href={`${B}/release-notes/${r.slug}`} class="release__link">
+                <div class="release__header">
+                  <h2 class="release__title">{r.data.title}</h2>
+                  <span class:list={['chip', `chip--${r.data.channel}`]}>
+                    {r.data.channel}
+                  </span>
+                </div>
+                <p class="release__meta">
+                  <span class="release__version">v{r.data.version}</span>
+                  <span class="release__sep">•</span>
+                  <time datetime={r.data.pubDate.toISOString()}>
+                    {formatDate(r.data.pubDate)}
+                  </time>
+                </p>
+                <p class="release__desc">{r.data.description}</p>
+                {r.data.highlights.length > 0 && (
+                  <ul class="release__highlights">
+                    {r.data.highlights.slice(0, 3).map((h) => <li>{h}</li>)}
+                  </ul>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section { padding-block: var(--space-7); }
+  .prose { max-width: 72ch; }
+  .lede { font-size: var(--fs-lg); }
+
+  .releases {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-5) 0 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .release {
+    border: 1px solid var(--brand-rule);
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .release:hover {
+    border-color: var(--brand-bright);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .release__link {
+    display: block;
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .release__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .release__title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-xl);
+    color: var(--brand-navy-deep);
+  }
+
+  .release__meta {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    color: var(--brand-mute);
+    font-size: var(--fs-sm);
+    margin: 0 0 var(--space-2);
+  }
+
+  .release__version {
+    font-family: var(--font-mono);
+    color: var(--brand-navy);
+  }
+
+  .release__sep {
+    color: var(--brand-rule);
+  }
+
+  .release__desc {
+    margin: 0;
+    color: var(--brand-text);
+  }
+
+  .release__highlights {
+    margin: var(--space-3) 0 0;
+    padding-left: 1.1em;
+    color: var(--brand-text);
+    font-size: var(--fs-sm);
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .chip--stable  { background: var(--brand-success-bg); color: var(--brand-success); }
+  .chip--preview { background: var(--brand-tint);       color: var(--brand-navy); }
+  .chip--beta    { background: var(--brand-warn-bg);    color: var(--brand-warn); }
+</style>
