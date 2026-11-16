@@ -1,73 +1,63 @@
 /* ============================================================================
-   Adapdev brand tokens - shared with adapdev.com.au corporate site
-   Palette traced from the ADMS Desktop splash image. See section 5 of the
-   ADMS Website Build Guide. Do not fork - keep in sync by hand or by
-   publishing to an internal npm package once that becomes worthwhile.
+   Adapdev brand tokens - dark theme.
+   -----------------------------------------------------------------------------
+   Palette is the ADMS navy -> sky-blue family (section 5 of the
+   ADMS Website Build Guide) remapped to a dark surface. The design still
+   reads as the Adapdev brand because the primary accent (bright blue) and
+   the neutral text are the same hues used on the ADMS Desktop splash.
+
+   Variable names preserved from the lapse-astro template so every component
+   using var(--black), var(--white), var(--grey) etc. inherits automatically.
+   New brand accents are added alongside; use --accent-bright for primary
+   calls to action and --accent-sky for soft highlights.
    ============================================================================ */
-
 :root {
-  /* Brand palette (navy -> sky-blue family on white) */
-  --brand-navy-deep: #0d2a5f;
-  --brand-navy:      #1b4d8e;
-  --brand-royal:     #2566b8;
-  --brand-bright:    #2e8dd8;
-  --brand-sky:       #4fa3de;
-  --brand-tint:      #e8f1fb;
-  --brand-tint-2:    #f3f8fd;
-  --brand-rule:      #b9cfe6;
-  --brand-text:      #1f2937;
-  --brand-mute:      #55657a;
-  --brand-white:     #ffffff;
-  --brand-warn:      #b45309;
-  --brand-warn-bg:   #fff7e6;
-  --brand-success:   #166534;
-  --brand-success-bg:#ecfdf5;
+  /* Surface and ink */
+  --black:      #060D1E;                        /* deep navy near-black        */
+  --white:      #F3F8FD;                        /* off-white, brand-tint-2     */
+  --grey:       #8FA7C4;                        /* light blue-grey body text   */
+  --dark-grey:  #7D97B6;                        /* mid blue-grey captions - WCAG AA on --black (6.4:1) */
+  --surface:    rgba(79, 163, 222, 0.07);       /* subtle sky tint for cards   */
+  --grey-20:    rgba(143, 167, 196, 0.18);      /* soft rules and borders      */
 
-  /* Typography */
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI',
+  /* Brand accents (new - reference by name in new components) */
+  --accent-navy-deep: #0D2A5F;
+  --accent-navy:      #1B4D8E;
+  --accent-royal:     #2566B8;                  /* primary CTA fill            */
+  --accent-bright:    #2E8DD8;                  /* primary accent / focus ring */
+  --accent-sky:       #4FA3DE;                  /* soft highlight              */
+  --accent-tint:      rgba(46, 141, 216, 0.14); /* tinted callout fill         */
+
+  /* Typography - section 5 of the ADMS Website Build Guide */
+  --font:      'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI',
                Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
-               Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Monaco,
+               Consolas, 'Liberation Mono', monospace;
+  /* --font-logo retained for the Nav/Footer wordmark; a weight-800 Inter
+     gives Adapdev presence without pulling in a separate display face. */
+  --font-logo: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
-  --font-size-base: 1rem;
-  --line-height-base: 1.6;
-  --measure: 72ch;
-
-  --fs-xs:   0.8rem;
-  --fs-sm:   0.9rem;
-  --fs-md:   1rem;
-  --fs-lg:   1.25rem;
-  --fs-xl:   1.563rem;
-  --fs-2xl:  1.953rem;
-  --fs-3xl:  2.441rem;
-  --fs-4xl:  3.052rem;
-
-  /* Spacing, radius, shadow */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-
-  --shadow-sm: 0 1px 2px rgba(13, 42, 95, 0.06);
-  --shadow-md: 0 4px 12px rgba(13, 42, 95, 0.10);
-  --shadow-lg: 0 12px 32px rgba(13, 42, 95, 0.14);
-
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --duration-fast: 150ms;
-  --duration-med:  250ms;
+  --canvas: 1200px;
+  --radius: 16px;
+  --ease-soft: cubic-bezier(0.2, 0.71, 0.2, 0.99);
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition-duration: 0ms !important;
-    animation-duration: 0ms !important;
-  }
+/* The template's .t-logo preset was tuned for the Climate Crisis display
+   face; Inter at weight 800 with slightly tracked-out letters renders as a
+   confident Adapdev wordmark instead. */
+.t-logo {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  text-transform: lowercase;
+}
+
+/* Primary link accent across the site (defaults inherit --white elsewhere). */
+a:hover,
+a:focus-visible {
+  color: var(--accent-sky);
+}
+:focus-visible {
+  outline-color: var(--accent-bright) !important;
 }

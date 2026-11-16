@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "Page not found — ADMS",
+    "description": "The page you were looking for isn't here."
+  },
+  "shards": { "flatBackground": "#060D1E" },
+  "eyebrow": "404",
+  "title": "That page is somewhere else.",
+  "body": "It may have moved, or you may have followed a stale link. Try the ADMS overview, the downloads page, or head back to adapdev.com.au.",
+  "button": { "href": "/adms", "label": "ADMS overview" }
+}

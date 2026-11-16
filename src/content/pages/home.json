@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "title": "ADMS — Adapdev Document Management System",
+    "description": "ADMS gives Australian sole traders, small businesses and law firms a single, searchable home for every document that belongs to a client, a matter or a job. On your hardware, integrated with Office, no subscription."
+  },
+  "hero": {
+    "eyebrow": "ADMS — Adapdev Document Management System",
+    "title": "Your client paperwork, ",
+    "titleMuted": "organised the way you already think about it.",
+    "description": "ADMS gives Australian sole traders, small businesses and law firms a single, searchable home for every document that belongs to a client, a matter or a job. Save straight from Word or Outlook. Everything stays on your hardware.",
+    "button": {
+      "href": "/adms/downloads",
+      "label": "Download ADMS"
+    },
+    "background": "/adms/assets/home/hero-fabric.webp",
+    "backgroundAlt": "Soft folded fabric in low light",
+    "screenshot": "/adms/assets/home/files.jpg",
+    "screenshotAlt": "ADMS desktop client showing a client's matters and documents",
+    "stats": [
+      { "value": "100%",    "label": "On your own hardware" },
+      { "value": "$0",      "label": "Monthly subscription" },
+      { "value": "<10 min", "label": "From installer to first filed document" }
+    ]
+  },
+  "changes": {
+    "eyebrow": "What changes",
+    "title": "What changes for a small business running ADMS",
+    "cards": [
+      {
+        "title": "The shoebox becomes a searchable index",
+        "description": "Scanned invoices, PDF contracts, email attachments — import a folder once and ADMS files every page under the right client. Full-text search surfaces anything in two keystrokes.",
+        "image": "/adms/assets/home/change-queue.webp",
+        "imageAlt": "Close-up of soft grey fabric",
+        "panel": {
+          "label": "IMPORTED FROM \\Scans",
+          "status": "DONE",
+          "count": "847",
+          "compare": "Previously: one carton under the desk",
+          "bars": [42, 31, 24, 18, 13, 9, 6]
+        }
+      },
+      {
+        "title": "Save from Word lands in the right matter",
+        "description": "The Word, Outlook, Excel and PowerPoint add-ins add File → Save to ADMS. One prompt for the client and matter, one click, and the file is versioned and audited.",
+        "image": "/adms/assets/home/change-handover.webp",
+        "imageAlt": "Folded linen in raking light",
+        "panel": {
+          "label": "SAVED FROM WORD",
+          "status": "09:13",
+          "message": "“Advice — Patel — 10 Oct.docx”",
+          "tags": ["PATEL & CO", "M-2026-104", "ADVICE"],
+          "route": "Versioned; checked in; audited",
+          "to": "→ S. Carter"
+        }
+      },
+      {
+        "title": "Your office network becomes a shared archive",
+        "description": "Multi-person deployments share one ADMS database. Permissions per client, per matter, per document type. Every read, write and delete logged with who, when and from where.",
+        "image": "/adms/assets/home/change-overnight.webp",
+        "imageAlt": "Rippled sand at night",
+        "panel": {
+          "label": "SHARED ACCESS, PATEL & CO",
+          "status": "LIVE",
+          "start": "08:00",
+          "end": "18:00",
+          "message": "“Advice — Patel — 10 Oct.docx”",
+          "source": "S. Carter (editor) • R. Shah (viewer)",
+          "time": "last read 14:02"
+        }
+      },
+      {
+        "title": "The subscription you don't pay",
+        "description": "ADMS is a one-off licence per installation. No per-seat fee, no per-document charge, no cloud bill that arrives in US dollars. The data lives on hardware you already own.",
+        "image": "/adms/assets/home/change-ninety.webp",
+        "imageAlt": "Windblown sand ridges",
+        "panel": {
+          "label": "MONTHLY — TYPICAL SMALL FIRM",
+          "status": "YEAR ONE",
+          "avatars": [
+            "/adms/assets/home/avatar-1.webp",
+            "/adms/assets/home/avatar-2.webp",
+            "/adms/assets/home/avatar-3.webp",
+            "/adms/assets/home/avatar-4.webp"
+          ],
+          "rows": [
+            { "label": "Document SaaS seats ×4", "value": "~ $220 → $0" },
+            { "label": "Cloud storage",             "value": "~ $80 → $0" },
+            { "label": "Annual total",              "value": "~ $3,600 → licence only" }
+          ]
+        }
+      }
+    ]
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "Four steps, nothing hidden on your drive",
+    "body": "ADMS runs locally. There is no account to create, no sign-up form, no server you can't log into. Install, point it at your folders, and you are filing within ten minutes.",
+    "steps": [
+      {
+        "title": "Install",
+        "description": "The signed server installer stands up the API, creates the dedicated service account, and provisions the database on SQLite or SQL Server.",
+        "image": "/adms/assets/home/step-reads.webp",
+        "imageAlt": "Light radiating from a single point"
+      },
+      {
+        "title": "Point",
+        "description": "Drag the folder of existing documents onto the desktop client. ADMS reads them, files them under their client, and makes everything searchable.",
+        "image": "/adms/assets/home/step-sorts.webp",
+        "imageAlt": "Fine parallel threads fanning out"
+      },
+      {
+        "title": "Save",
+        "description": "The Office add-ins add File → Save to ADMS. Pick a client and matter, hit Enter, done. The file is versioned and the audit log records who filed it.",
+        "image": "/adms/assets/home/step-answers.webp",
+        "imageAlt": "Soft folds catching light"
+      },
+      {
+        "title": "Find",
+        "description": "Full-text search across every document. Filter by client, matter, document type, author or date. Open in the native application with one click.",
+        "image": "/adms/assets/home/step-hands-over.webp",
+        "imageAlt": "Two surfaces meeting at an edge"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Early installs,\nin their words",
+    "quotes": [
+      {
+        "quote": "I ran it on a Toughbook on site, next to the generator. Filed every receipt and job card for an entire fit-out without opening a browser once.",
+        "name": "Carpenter, Sunshine Coast",
+        "role": "Sole trader install",
+        "icon": true
+      },
+      {
+        "quote": "Three partners, two paralegals, one database on the back-office server. The audit log alone saved us two spreadsheets we were keeping by hand.",
+        "name": "Office manager, suburban law firm",
+        "role": "Small-firm install",
+        "icon": true
+      },
+      {
+        "quote": "Save from Word lands the file against the right matter in one prompt. We've stopped losing drafts in Downloads.",
+        "name": "Litigator, mid-size practice",
+        "role": "Daily user",
+        "icon": false
+      },
+      {
+        "quote": "The thing I like most is what isn't there. No login screen for an account I didn't create. No upload bar. No sign-up email.",
+        "name": "Electrician, suburban Brisbane",
+        "role": "Sole trader install",
+        "icon": false,
+        "compact": true
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "One licence per installation. No per-document fee."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "The practical questions first",
+    "card": {
+      "title": "Something else on your mind?",
+      "text": "We reply the same working day.",
+      "button": { "href": "/contact", "label": "Contact us" }
+    },
+    "items": [
+      {
+        "q": "Where does the data live?",
+        "a": "On your hardware. The server installer creates a SQLite database (sole-trader install, one laptop) or configures a SQL Server database (small-business or law-firm install, one on-site server). ADMS never ships your documents to Adapdev, Microsoft, Amazon, or anyone else. There is no SaaS backend to switch off."
+      },
+      {
+        "q": "What happens if we outgrow the laptop install?",
+        "a": "The data migrates. The sole-trader SQLite database can be imported straight into a small-business SQL Server install with a bundled tool — clients, matters, documents, permissions, audit log, the lot. You don't lose a filing when you add staff."
+      },
+      {
+        "q": "Does it work with the Office we already have?",
+        "a": "Yes. The desktop installer adds native add-ins to Word, Outlook, Excel and PowerPoint. Microsoft 365, Office 2021 or Office 2019 are all supported. There is no cloud sign-in step; the add-ins talk to the ADMS API on your own network."
+      },
+      {
+        "q": "Our existing filing is a mess — is that a dealbreaker?",
+        "a": "No, and it is usually the reason to start. Drop the current folder structure on the desktop client; ADMS imports what's there, surfaces the duplicates, and gives you a clean filing scheme to fix the mess once rather than every day."
+      },
+      {
+        "q": "What about backup and disaster recovery?",
+        "a": "ADMS does not replace your backup strategy, and it doesn't try to. The sole-trader SQLite database is one file — copy it. The small-business SQL Server database runs on your own server — use the backup tooling you already have, or the scripted job the installer ships. The installer prints a recovery runbook you can hand to IT."
+      },
+      {
+        "q": "Who supports it?",
+        "a": "Adapdev directly. There is no first-tier queue — the person who shipped the release is the person who answers the bug report. We're a small shop; see the About page on adapdev.com.au."
+      }
+    ]
+  },
+  "blog": {
+    "eyebrow": "Release notes",
+    "title": "What shipped in ADMS",
+    "button": { "href": "/adms/release-notes", "label": "All release notes" }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "toggle": {
+    "label": "Pricing view",
+    "monthly": "Standard",
+    "annual": "With renewal",
+    "save": "RENEWAL — OPTIONAL"
+  },
+  "plans": [
+    {
+      "id": "sole-trader",
+      "name": "Sole Trader",
+      "description": "Single-person tradies and operators. Runs on your laptop with SQLite — no server to maintain.",
+      "price": { "monthly": "$XXX", "annual": "$XXX" },
+      "unit": "one-off per laptop",
+      "features": [
+        "SQLite backend (bundled)",
+        "Up to 1,000 active clients",
+        "Full Office integration (Word, Outlook, Excel, PowerPoint)",
+        "Email support",
+        "12 months of updates"
+      ],
+      "button": { "href": "/adms/downloads", "label": "Download trial", "variant": "secondary" }
+    },
+    {
+      "id": "small-business",
+      "name": "Small Business",
+      "badge": "MOST TEAMS",
+      "featured": true,
+      "description": "Multi-person tradies and services teams. Shared document access on your office LAN with per-user permissions and full audit log.",
+      "price": { "monthly": "$XXX", "annual": "$XXX" },
+      "unit": "one-off per office server",
+      "features": [
+        "SQL Server backend",
+        "Unlimited clients and matters",
+        "Per-user permissions and audit log",
+        "OAuth integrations (Xero, MYOB, Salesforce)",
+        "12 months of updates and priority support"
+      ],
+      "button": { "href": "/contact", "label": "Request a demo", "variant": "primary" }
+    },
+    {
+      "id": "law-firm",
+      "name": "Law Firm",
+      "description": "Small to medium legal practice. Matter-centric data model and the audit controls your clients expect.",
+      "price": { "monthly": "Contact", "annual": "Contact" },
+      "unit": "contact us",
+      "features": [
+        "Everything in Small Business",
+        "Legal-practice compliance audit controls",
+        "Optional Azure Key Vault secret storage",
+        "On-site onboarding (metro AU)",
+        "Named implementation contact"
+      ],
+      "button": { "href": "/contact", "label": "Talk to us", "variant": "secondary" }
+    }
+  ]
+}

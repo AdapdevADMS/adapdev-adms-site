@@ -1,80 +1,99 @@
 ---
 /**
- * /adms/support - how to get help.
+ * /adms/support
+ *
+ * How to get help with ADMS. Content ported from the earlier
+ * adapdev-adms-site support page.
  */
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
 ---
-
-<BaseLayout
-  title="Support"
-  description="How to get help with ADMS: email support, release notes, documentation, and incident response."
+<Base
+  title="Support — ADMS"
+  description="How to get help with ADMS: email support, release notes, security disclosures, on-site onboarding and offline documentation."
 >
-  <section class="section">
-    <div class="container prose">
-      <h1>Support</h1>
-      <p class="lede">
-        ADMS is maintained by Adapdev directly. When something breaks,
-        the person who fixes it is the person who shipped it.
-      </p>
+  <section class="support">
+    <p class="t-eyebrow">Support</p>
+    <h1 class="t-h1 balance">The person who ships it answers the ticket.</h1>
+    <p class="t-body-m balance lede">
+      ADMS is maintained by Adapdev directly. When something breaks, the person who fixes it is the person who shipped it.
+    </p>
 
-      <h2>Email support</h2>
-      <p>
-        For general questions, bug reports, and feature requests, email
-        support via the Adapdev website
-        <a href="/contact">contact form</a>. Expect a reply within one
-        Australian business day (Monday to Friday, Eastern time).
-      </p>
-      <p>
-        When reporting a bug, please include your ADMS version
-        (<em>Help &rarr; About</em> in the desktop client, or the
-        <code>Server-Version</code> response header from the API), the
-        operating system, and the sequence of actions that produced the
-        issue.
-      </p>
-
-      <h2>Release notes and updates</h2>
-      <p>
-        Every ADMS release is documented in the
-        <a href={`${B}/release-notes`}>release notes</a>. The
-        <a href={`${B}/release-notes/rss.xml`}>RSS feed</a> is the
-        recommended way to be notified of a new release without being
-        on anyone's mailing list.
-      </p>
-
-      <h2>Security disclosures</h2>
-      <p>
-        Found a security issue? Please report it privately via the
-        <a href="/contact">contact form</a> with "SECURITY" in the subject
-        line, rather than opening a public GitHub issue. We follow a
-        responsible-disclosure process in line with the Australian
-        Notifiable Data Breaches scheme; see our incident-response
-        procedure for timing and detail.
-      </p>
-
-      <h2>On-site assistance (law firms, metro AU)</h2>
-      <p>
-        For law-firm customers in metropolitan Australia, on-site
-        onboarding and incident response are available. Travel is
-        charged separately; see the <a href={`${B}/pricing`}>pricing
-        page</a> for the base tier or get in touch for a quote.
-      </p>
-
-      <h2>Documentation</h2>
-      <p class="muted">
-        Searchable product documentation is coming to this site. In the
-        meantime, the ADMS installer ships with an offline operations
-        manual (<code>%ProgramFiles%\Adapdev\ADMS\docs</code>) covering
-        installation, backup, restore, rotation of signing keys, and
-        the incident-response runbook.
-      </p>
+    <div class="actions">
+      <Button href="/contact">Contact support</Button>
+      <Button href="/adms/release-notes" variant="ghost">Release notes</Button>
     </div>
+
+    <article class="block">
+      <h2 class="t-h3">Email support</h2>
+      <p class="t-body-m">
+        For general questions, bug reports and feature requests, email support via the Adapdev <a href="/contact">contact form</a>. Expect a reply within one Australian business day (Monday to Friday, Eastern time).
+      </p>
+      <p class="t-body-m">
+        When reporting a bug, please include your ADMS version (<em>Help → About</em> in the desktop client, or the <code>Server-Version</code> response header from the API), the operating system, and the sequence of actions that produced the issue.
+      </p>
+    </article>
+
+    <article class="block">
+      <h2 class="t-h3">Release notes and updates</h2>
+      <p class="t-body-m">
+        Every ADMS release is documented in the <a href="/adms/release-notes">release notes</a>. The <a href="/adms/release-notes/rss.xml">RSS feed</a> is the recommended way to be notified of a new release without being on anyone's mailing list.
+      </p>
+    </article>
+
+    <article class="block">
+      <h2 class="t-h3">Security disclosures</h2>
+      <p class="t-body-m">
+        Found a security issue? Please report it privately via the <a href="/contact">contact form</a> with "SECURITY" in the subject line, rather than opening a public GitHub issue. We follow a responsible-disclosure process in line with the Australian Notifiable Data Breaches scheme; see our incident-response procedure for timing and detail.
+      </p>
+    </article>
+
+    <article class="block">
+      <h2 class="t-h3">On-site assistance (law firms, metro AU)</h2>
+      <p class="t-body-m">
+        For law-firm customers in metropolitan Australia, on-site onboarding and incident response are available. Travel is charged separately; see the <a href="/adms/pricing">pricing page</a> for the base tier or <a href="/contact">get in touch</a> for a quote.
+      </p>
+    </article>
+
+    <article class="block">
+      <h2 class="t-h3">Documentation</h2>
+      <p class="t-body-m">
+        Searchable product documentation is coming to this site. In the meantime, the ADMS installer ships with an offline operations manual (<code>%ProgramFiles%\Adapdev\ADMS\docs</code>) covering installation, backup, restore, rotation of signing keys, and the incident-response runbook.
+      </p>
+    </article>
   </section>
-</BaseLayout>
+</Base>
 
 <style>
-  .section { padding-block: var(--space-7); }
-  .prose { max-width: 72ch; }
-  .lede { font-size: var(--fs-lg); }
+  .support {
+    width: 100%; max-width: 820px; margin: 0 auto;
+    padding: 100px 20px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .support h1 { max-width: 760px; }
+  .lede { max-width: 720px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; padding-block: 4px 24px; }
+
+  .block {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--grey-20);
+    border-radius: 12px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .block h2 { color: var(--white); }
+  .block p { color: var(--grey); }
+  .block a { color: var(--accent-sky); text-decoration: underline; text-underline-offset: 2px; }
+  .block a:hover, .block a:focus-visible { color: var(--white); }
+  .block code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    padding: 1px 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+  }
+
+  @media (max-width: 809.98px) {
+    .support { padding: 64px 20px; }
+  }
 </style>

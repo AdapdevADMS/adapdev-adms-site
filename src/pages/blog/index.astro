@@ -1,0 +1,29 @@
+---
+/**
+ * /adms/blog — kept for backward compatibility. Redirects to the ADMS
+ * release notes, which is the sub-site's living log.
+ */
+import Base from '../../layouts/Base.astro';
+const target = '/adms/release-notes';
+---
+<Base title="Blog — ADMS" description="The ADMS sub-site uses /adms/release-notes rather than a blog." noindex>
+  <section class="redirect">
+    <p class="t-eyebrow">Blog</p>
+    <h1 class="t-h3 balance">Looking for the ADMS release notes?</h1>
+    <p class="t-body-m">
+      Head to <a href={target}>release notes</a>, where every ADMS release is documented. Adapdev company blog posts live on <a href="/blog">adapdev.com.au/blog</a>.
+    </p>
+  </section>
+</Base>
+<script is:inline define:vars={{ target }}>
+  try { window.location.replace(target); } catch (_) { /* ignore */ }
+</script>
+<style>
+  .redirect {
+    width: 100%; max-width: 640px; margin: 0 auto;
+    padding: 140px 20px;
+    display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
+  }
+  .redirect a { color: var(--accent-sky); text-decoration: underline; text-underline-offset: 2px; }
+  .redirect a:hover, .redirect a:focus-visible { color: var(--white); }
+</style>

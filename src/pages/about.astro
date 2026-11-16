@@ -1,0 +1,40 @@
+---
+/**
+ * /adms/about — forwards to the corporate /about.
+ *
+ * The /adms sub-site intentionally does not maintain its own about, contact,
+ * privacy or terms pages: the authoritative copy lives on the Adapdev
+ * corporate site. This stub exists so direct links to /adms/about
+ * do not 404 while the Cloudflare Worker is routing /adms/* to this project.
+ */
+import Base from '../layouts/Base.astro';
+const target = '/about';
+---
+<Base
+  title="About Adapdev — ADMS"
+  description="See /about on the Adapdev corporate site."
+  noindex
+>
+  <section class="redirect">
+    <p class="t-eyebrow">About Adapdev</p>
+    <h1 class="t-h3 balance">About Adapdev lives on the main Adapdev site.</h1>
+    <p class="t-body-m">
+      You're being redirected to <a href={target}>{target}</a>. If nothing happens, follow the link.
+    </p>
+  </section>
+</Base>
+
+<script is:inline define:vars={{ target }}>
+  // Client-side redirect kept inline so there is no module round-trip.
+  try { window.location.replace(target); } catch (_) { /* ignore */ }
+</script>
+
+<style>
+  .redirect {
+    width: 100%; max-width: 640px; margin: 0 auto;
+    padding: 140px 20px;
+    display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
+  }
+  .redirect a { color: var(--accent-sky); text-decoration: underline; text-underline-offset: 2px; }
+  .redirect a:hover, .redirect a:focus-visible { color: var(--white); }
+</style>

@@ -1,0 +1,54 @@
+{
+  "brand": "adapdev",
+  "nav": {
+    "links": [
+      { "href": "/adms",                "label": "Overview" },
+      { "href": "/adms/features",       "label": "Features" },
+      { "href": "/adms/pricing",        "label": "Pricing" },
+      { "href": "/adms/downloads",      "label": "Downloads" },
+      { "href": "/adms/release-notes",  "label": "Release notes" },
+      { "href": "/adms/support",        "label": "Support" }
+    ],
+    "login": { "href": "/",         "label": "← Adapdev" },
+    "demo":  { "href": "/contact",  "label": "Request a demo" }
+  },
+  "cta": {
+    "headingMuted": "On your hardware. ",
+    "heading": "Not someone else’s cloud.",
+    "description": "Try ADMS on a laptop. No subscription, no upload, no account to create.",
+    "button": { "href": "/adms/downloads", "label": "Download ADMS" },
+    "image": "/adms/assets/site/handshake-particles.webp",
+    "imageAlt": "Soft particle field in low light"
+  },
+  "footer": {
+    "columns": [
+      { "label": "ADMS", "links": [
+        { "href": "/adms",               "label": "Overview" },
+        { "href": "/adms/features",      "label": "Features" },
+        { "href": "/adms/pricing",       "label": "Pricing" },
+        { "href": "/adms/downloads",     "label": "Downloads" },
+        { "href": "/adms/release-notes", "label": "Release notes" },
+        { "href": "/adms/support",       "label": "Support" }
+      ] },
+      { "label": "Adapdev", "links": [
+        { "href": "/",          "label": "Adapdev home" },
+        { "href": "/#products", "label": "Other products" },
+        { "href": "/about",     "label": "About Adapdev" },
+        { "href": "/blog",      "label": "Blog" },
+        { "href": "/contact",   "label": "Contact" }
+      ] },
+      { "label": "Legal", "links": [
+        { "href": "/privacy", "label": "Privacy policy" },
+        { "href": "/terms",   "label": "Terms & conditions" }
+      ] },
+      { "label": "Elsewhere", "links": [
+        { "href": "mailto:hello@adapdev.com.au",   "label": "hello@adapdev.com.au" },
+        { "href": "https://github.com/adapdevADMS", "label": "GitHub",            "external": true },
+        { "href": "https://www.linkedin.com",       "label": "LinkedIn",          "external": true },
+        { "href": "/adms/release-notes/rss.xml",    "label": "Release notes RSS" }
+      ] }
+    ],
+    "copyright": "© 2026 Adapdev Pty Ltd.",
+    "note": "Built in Brisbane. ABN registered in Australia."
+  }
+}

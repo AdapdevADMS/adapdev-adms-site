@@ -1,109 +1,35 @@
 ---
-/**
- * /adms/pricing - three illustrative tiers aligned with the three target
- * business types. Prices here are placeholders - replace before launch.
- */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PricingCard from '../components/PricingCard.astro';
-
-const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+import Base from '../layouts/Base.astro';
+import Plans from '../components/sections/Plans.astro';
+import ComparePlans from '../components/sections/ComparePlans.astro';
+import Faq from '../components/sections/Faq.astro';
+import page from '../content/pages/pricing.json';
+const { meta, top, faq } = page;
 ---
-
-<BaseLayout
-  title="Pricing"
-  description="One-off licence pricing for ADMS across the three target business types."
->
-  <section class="section">
-    <div class="container prose">
-      <h1>Pricing</h1>
-      <p class="lede">
-        ADMS is sold as a one-off licence per installation. No monthly
-        subscription, no per-document fee. Price includes 12 months of
-        free updates; renewal is optional and keeps you on the latest
-        release.
-      </p>
-      <p class="muted">
-        All prices in AUD, excluding GST. Figures below are illustrative
-        placeholders. Final pricing will be confirmed before public launch.
-      </p>
+<Base title={meta.title} description={meta.description} image={meta.image}>
+  <section class="pricing-top">
+    <div class="pricing-title">
+      <p class="t-eyebrow">{top.eyebrow}</p>
+      <h1 class="t-h1 balance">{top.title}</h1>
+      <p class="t-body-m balance pricing-description">{top.description}</p>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="pricing-grid">
-        <PricingCard
-          tier="Sole Trader"
-          audience="Single-person tradies and operators"
-          price="$XXX"
-          cadence="one-off per laptop"
-          features={[
-            'SQLite backend (no server to maintain)',
-            'Up to 1,000 active clients',
-            'Full Office integration',
-            'Email support',
-            '12 months of updates',
-          ]}
-          ctaLabel="Download"
-          ctaHref={`${B}/downloads`}
-        />
-        <PricingCard
-          tier="Small Business"
-          audience="Multi-person tradies and services teams"
-          price="$XXX"
-          cadence="one-off per office server"
-          features={[
-            'SQL Server backend',
-            'Unlimited clients and matters',
-            'Per-user permissions and audit log',
-            'OAuth integrations (Xero, MYOB)',
-            '12 months of updates and priority support',
-          ]}
-          ctaLabel="Download"
-          ctaHref={`${B}/downloads`}
-          featured={true}
-        />
-        <PricingCard
-          tier="Law Firm"
-          audience="Small to medium legal practice"
-          price="$XXX"
-          cadence="one-off per office server"
-          features={[
-            'All Small Business features',
-            'Matter-centric data model',
-            'Legal-practice compliance audit controls',
-            'Optional Azure Key Vault secret storage',
-            'On-site onboarding (metro AU)',
-          ]}
-          ctaLabel="Talk to us"
-          ctaHref="/contact"
-        />
-      </div>
-
-      <aside class="callout callout--wide">
-        <strong>What is NOT in the price:</strong> hardware, Windows licences,
-        SQL Server licences (when used), ongoing backup media, and the
-        cost of your own time setting ADMS up. For the Sole Trader tier
-        on a laptop with SQLite, those "extras" are typically zero.
-      </aside>
-    </div>
+  <section class="plans-section" id="plans">
+    <Plans />
   </section>
-</BaseLayout>
+  <ComparePlans />
+  <Faq eyebrow={faq.eyebrow} title={faq.title} card={faq.card} items={faq.items} />
+</Base>
 
 <style>
-  .section { padding-block: var(--space-7); }
-  .prose { max-width: 72ch; }
-  .lede { font-size: var(--fs-lg); }
-
-  .pricing-grid {
-    display: grid;
-    gap: var(--space-5);
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    align-items: stretch;
-    padding-top: var(--space-4);
-  }
-
-  .callout--wide {
-    margin-top: var(--space-7);
+  .pricing-top, .plans-section { width: 100%; max-width: var(--canvas); margin: 0 auto; }
+  .pricing-top { padding: 100px 20px; }
+  .pricing-title { display: flex; flex-direction: column; gap: 24px; }
+  .pricing-title h1 { max-width: 800px; }
+  .pricing-description { max-width: 720px; }
+  .plans-section { padding: 0 20px 100px; }
+  @media (max-width: 809.98px) {
+    .pricing-top { padding: 64px 20px; }
+    .plans-section { padding: 0 20px 64px; }
   }
 </style>

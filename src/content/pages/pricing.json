@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Pricing — ADMS",
+    "description": "One-off licence pricing for ADMS across the three target business types: sole trader, small business, and small/medium law firm. No subscription, no per-document fee.",
+    "image": "/adms/assets/pricing/og.jpg"
+  },
+  "top": {
+    "eyebrow": "Pricing",
+    "title": "One licence per installation. Nothing per document.",
+    "description": "ADMS is sold as a one-off licence per installation — one laptop for a sole trader, one office server for a small business or law firm. Twelve months of updates included; renewal is optional and keeps you on the latest release. No per-seat fee, no per-document charge, no cloud bill in US dollars."
+  },
+  "compare": {
+    "eyebrow": "Compare",
+    "title": "The whole thing, line by line",
+    "tabsLabel": "Plan to compare",
+    "headLabel": "What you get",
+    "columns": [
+      { "id": "sole-trader",    "label": "Sole trader" },
+      { "id": "small-business", "label": "Small business" },
+      { "id": "law-firm",       "label": "Law firm" }
+    ],
+    "included": "Included",
+    "notIncluded": "Not included",
+    "groups": [
+      {
+        "title": "Pricing shape",
+        "rows": [
+          { "label": "One-off licence",   "cells": [{ "monthly": "$XXX", "annual": "$XXX" }, { "monthly": "$XXX", "annual": "$XXX" }, "Contact us"] },
+          { "label": "Per-document fee",  "cells": ["None", "None", "None"] },
+          { "label": "Per-seat fee",      "cells": ["None", "None", "None"] },
+          { "label": "Updates included",  "cells": ["12 months", "12 months", "12 months"] }
+        ]
+      },
+      {
+        "title": "Deployment",
+        "rows": [
+          { "label": "Database",                "cells": ["SQLite (bundled)", "SQL Server", "SQL Server"] },
+          { "label": "Runs on",                 "cells": ["One Windows laptop", "One office server", "One office server"] },
+          { "label": "On-premises only",        "cells": [true, true, true] },
+          { "label": "Internet required to run","cells": [false, false, false] }
+        ]
+      },
+      {
+        "title": "Filing and search",
+        "rows": [
+          { "label": "Clients, matters, jobs",   "cells": [true, true, true] },
+          { "label": "Full-text search",         "cells": [true, true, true] },
+          { "label": "Office add-ins (Word, Outlook, Excel, PowerPoint)", "cells": [true, true, true] },
+          { "label": "Document checkout and version history", "cells": [true, true, true] }
+        ]
+      },
+      {
+        "title": "Multi-user and audit",
+        "rows": [
+          { "label": "Per-user permissions",              "cells": [false, true, true] },
+          { "label": "Audit log",                         "cells": [false, true, true] },
+          { "label": "Shared database on the office LAN", "cells": [false, true, true] },
+          { "label": "Managed Service Account",           "cells": [false, true, true] }
+        ]
+      },
+      {
+        "title": "Integrations and compliance",
+        "rows": [
+          { "label": "OAuth to Xero / MYOB / Salesforce", "cells": [false, true, true] },
+          { "label": "Legal practice audit controls",     "cells": [false, false, true] },
+          { "label": "Azure Key Vault (optional)",        "cells": [false, false, true] },
+          { "label": "On-site onboarding (metro AU)",     "cells": [false, false, true] }
+        ]
+      }
+    ],
+    "footnote": "All prices in AUD, excluding GST. Final pricing confirmed before public launch."
+  },
+  "faq": {
+    "eyebrow": "Pricing FAQ",
+    "title": "Pricing questions, briefly",
+    "card": {
+      "title": "Something else about pricing?",
+      "text": "Email us and we'll reply the same working day.",
+      "button": { "href": "/contact", "label": "Ask about pricing" }
+    },
+    "items": [
+      {
+        "q": "Why one-off instead of subscription?",
+        "a": "Because the product is on your hardware and we don't want you paying rent on software that runs locally. The licence buys the installer, twelve months of updates, and support. After twelve months, ADMS keeps working — renewal is only needed to keep updates coming."
+      },
+      {
+        "q": "What is NOT in the price?",
+        "a": "Hardware, Windows licences, SQL Server licences (small-business and law-firm tiers), ongoing backup media, and the cost of your own time setting ADMS up. For the Sole Trader tier on a laptop with the bundled SQLite, those 'extras' are typically zero."
+      },
+      {
+        "q": "Can we migrate between tiers later?",
+        "a": "Yes. SQLite (sole-trader) data imports straight into a SQL Server (small-business or law-firm) install with a bundled migration tool — clients, matters, documents, permissions, audit log all intact."
+      },
+      {
+        "q": "Do you offer a trial?",
+        "a": "Yes. We send a time-limited signed installer that runs the full product against a demo dataset for 30 days on your own hardware. No signup, no credit card."
+      }
+    ]
+  }
+}

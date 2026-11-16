@@ -1,0 +1,68 @@
+---
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+/* Font stack per section 5 of the ADMS Website Build Guide:
+   Inter (variable) for all headings and body, JetBrains Mono for code
+   and the small eyebrow labels. Self-hosted via @fontsource* so no
+   third-party cookies land on the visitor's browser - preserves the
+   Australian Privacy Act posture for the Adapdev site. */
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import StoreBadge from '../components/StoreBadge.astro';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  /** The 404 page has no nav or footer, as in the Framer template. */
+  bare?: boolean;
+  noindex?: boolean;
+}
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { title, description, image = `${BASE}/assets/site/og.jpg`, bare = false, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const analytics = import.meta.env.PUBLIC_VERCEL_ANALYTICS === 'true';
+---
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#060D1E" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${BASE}/adms-logo.svg`} />
+    <link rel="alternate icon" type="image/x-icon" href={`${BASE}/favicon.ico`} sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${BASE}/apple-touch-icon.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_AU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    {!bare && <Nav />}
+    <main>
+      <slot />
+    </main>
+    {!bare && <Footer />}
+    <StoreBadge />
+    <script>
+      import '../scripts/entry';
+    </script>
+    {analytics && <Analytics />}
+    {analytics && <SpeedInsights />}
+    <GoogleAnalytics />
+  </body>
+</html>

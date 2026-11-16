@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "title": "Release notes — ADMS",
+    "description": "Every ADMS release, newest first. Subscribe via RSS to be notified of a new release without being on a mailing list.",
+    "postTitleSuffix": " — ADMS"
+  },
+  "hero": {
+    "eyebrow": "Release notes",
+    "heading": "What shipped in ADMS",
+    "blurb": "Every ADMS release is documented here. Subscribe via the RSS feed to be notified of new releases without being on a mailing list.",
+    "read": "Open"
+  },
+  "tabs": [
+    { "label": "All",     "value": "" },
+    { "label": "Stable",  "value": "stable" },
+    { "label": "Preview", "value": "preview" },
+    { "label": "Beta",    "value": "beta" }
+  ],
+  "tabsLabel": "Filter release notes by channel",
+  "empty": "No releases filed under this channel yet.",
+  "metaSeparator": "•",
+  "related": "Earlier releases"
+}

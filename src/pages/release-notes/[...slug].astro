@@ -1,112 +1,107 @@
 ---
 /**
- * Dynamic release-notes route - /adms/release-notes/<slug>.
+ * /adms/release-notes/<slug>
+ *
+ * Renders one release note from the `releaseNotes` collection.
  */
-import { getCollection, type CollectionEntry } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import blog from '../../content/pages/blog.json';
 
-const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export async function getStaticPaths() {
   const releases = await getCollection('releaseNotes', ({ data }) => !data.draft);
-  return releases.map((r) => ({
-    params: { slug: r.slug },
-    props: { release: r },
-  }));
+  return releases.map((r) => ({ params: { slug: r.id }, props: { release: r } }));
 }
 
-interface Props {
-  release: CollectionEntry<'releaseNotes'>;
-}
-
+interface Props { release: CollectionEntry<'releaseNotes'>; }
 const { release } = Astro.props;
-const { Content } = await release.render();
+const { Content } = await render(release);
 
 const formatDate = (d: Date): string =>
   d.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
+<Base title={release.data.title + blog.meta.postTitleSuffix} description={release.data.description}>
+  <article class="release">
+    <p class="back"><a href={`${BASE}/release-notes`}>← All releases</a></p>
 
-<BaseLayout title={release.data.title} description={release.data.description}>
-  <article class="section">
-    <div class="container prose">
-      <p class="back"><a href={`${B}/release-notes`}>&larr; All releases</a></p>
+    <header class="header">
+      <h1 class="t-h2">{release.data.title}</h1>
+      <span class={`chip chip--${release.data.channel}`}>{release.data.channel}</span>
+    </header>
 
-      <div class="release-header">
-        <h1>{release.data.title}</h1>
-        <span class:list={['chip', `chip--${release.data.channel}`]}>
-          {release.data.channel}
-        </span>
-      </div>
+    <p class="meta">
+      <span class="version">v{release.data.version}</span>
+      <span class="sep">•</span>
+      <time datetime={release.data.pubDate.toISOString()}>{formatDate(release.data.pubDate)}</time>
+    </p>
 
-      <p class="meta">
-        <span class="version">v{release.data.version}</span>
-        &middot;
-        <time datetime={release.data.pubDate.toISOString()}>{formatDate(release.data.pubDate)}</time>
-      </p>
+    {release.data.highlights.length > 0 && (
+      <aside class="highlights">
+        <p class="highlights__label">Highlights</p>
+        <ul>
+          {release.data.highlights.map((h) => <li>{h}</li>)}
+        </ul>
+      </aside>
+    )}
 
-      {release.data.highlights.length > 0 && (
-        <div class="callout">
-          <strong>Highlights</strong>
-          <ul>
-            {release.data.highlights.map((h) => <li>{h}</li>)}
-          </ul>
-        </div>
-      )}
-
-      <div class="release-body">
-        <Content />
-      </div>
+    <div class="body">
+      <Content />
     </div>
   </article>
-</BaseLayout>
+</Base>
 
 <style>
-  .section { padding-block: var(--space-7); }
-  .prose { max-width: 68ch; }
-
-  .back { margin: 0 0 var(--space-5); }
-
-  .release-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
+  .release {
+    width: 100%; max-width: 760px; margin: 0 auto;
+    padding: 100px 20px;
+    display: flex; flex-direction: column; gap: 16px;
   }
+  .back a { color: var(--dark-grey); text-decoration: none; }
+  .back a:hover, .back a:focus-visible { color: var(--white); }
 
-  .release-header h1 { margin: 0; }
+  .header { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+  .meta { display: flex; gap: 8px; align-items: center; color: var(--dark-grey); font-size: 14px; margin: 0 0 24px; }
+  .version { font-family: var(--font-mono); color: var(--white); }
+  .sep { color: var(--grey-20); }
 
-  .meta {
-    color: var(--brand-mute);
-    margin-bottom: var(--space-6);
+  .highlights {
+    padding: 20px 24px;
+    background: var(--accent-tint);
+    border-left: 4px solid var(--accent-bright);
+    border-radius: 8px;
+    margin-bottom: 24px;
   }
+  .highlights__label { margin: 0 0 8px; color: var(--white); font-weight: 600; }
+  .highlights ul { margin: 0; padding-left: 1.2em; color: var(--white); display: grid; gap: 4px; list-style: disc; }
 
-  .version {
-    font-family: var(--font-mono);
-    color: var(--brand-navy);
-  }
-
-  .release-body :global(h2) { margin-top: var(--space-6); }
-  .release-body :global(h3) { margin-top: var(--space-5); }
-
-  .release-body :global(blockquote) {
-    margin: var(--space-5) 0;
-    padding: var(--space-4) var(--space-5);
-    border-left: 4px solid var(--brand-bright);
-    background: var(--brand-tint);
-    border-radius: var(--radius-md);
+  .body { color: var(--grey); font-size: 16px; line-height: 1.6; }
+  .body :global(h2) { color: var(--white); font-size: 24px; line-height: 1.2em; margin: 40px 0 12px; font-weight: 500; }
+  .body :global(h3) { color: var(--white); font-size: 18px; line-height: 1.3em; margin: 28px 0 8px; font-weight: 500; }
+  .body :global(p) { margin: 0 0 14px; }
+  .body :global(ul), .body :global(ol) { margin: 0 0 14px; padding-left: 1.3em; display: grid; gap: 6px; list-style: disc; }
+  .body :global(a) { color: var(--accent-sky); text-decoration: underline; text-underline-offset: 2px; }
+  .body :global(a:hover) { color: var(--white); }
+  .body :global(code) { font-family: var(--font-mono); background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; font-size: 0.9em; color: var(--white); }
+  .body :global(strong) { color: var(--white); font-weight: 600; }
+  .body :global(blockquote) {
+    margin: 20px 0;
+    padding: 16px 20px;
+    border-left: 4px solid var(--accent-bright);
+    background: var(--accent-tint);
+    border-radius: 8px;
   }
 
   .chip {
-    display: inline-block;
-    padding: 0.1rem 0.6rem;
-    border-radius: 999px;
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
   }
+  .chip--stable  { background: rgba(22, 101, 52, 0.25);  color: #86efac; }
+  .chip--preview { background: var(--accent-tint);       color: var(--accent-sky); }
+  .chip--beta    { background: rgba(180, 83, 9, 0.25);   color: #fcd34d; }
 
-  .chip--stable  { background: var(--brand-success-bg); color: var(--brand-success); }
-  .chip--preview { background: var(--brand-tint);       color: var(--brand-navy); }
-  .chip--beta    { background: var(--brand-warn-bg);    color: var(--brand-warn); }
+  @media (max-width: 809.98px) {
+    .release { padding: 64px 20px; }
+  }
 </style>
