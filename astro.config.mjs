@@ -39,5 +39,10 @@ export default defineConfig({
   // needed.
   devToolbar: { enabled: false },
 
-  adapter: cloudflare()
+  adapter: cloudflare({
+    platformProxy: { enabled: true }
+  }),
+  build: {
+    assetsPrefix: '/adms' // ensures _astro/ assets resolve correctly
+  }
 });

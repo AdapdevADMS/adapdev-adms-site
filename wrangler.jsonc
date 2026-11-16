@@ -1,14 +1,31 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"compatibility_date": "2026-11-10",
-	"compatibility_flags": ["global_fetch_strictly_public"],
-	"name": "adapdev-adms-site",
-	"main": "@astrojs/cloudflare/entrypoints/server",
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	},
-	"observability": {
-		"enabled": true
-	}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "adapdev-adms-site",
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Bind this Worker to the /adms path on your existing zone.
+  // The trailing /* is critical — without it only the exact /adms URL matches.
+  "routes": [
+    {
+      "pattern": "adapdev.com.au/adms",
+      "zone_name": "adapdev.com.au"
+    },
+    {
+      "pattern": "adapdev.com.au/adms/*",
+      "zone_name": "adapdev.com.au"
+    }
+  ],
+
+  // Static assets (Astro's client output)
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application" // or "404-page" for MPA
+  },
+
+  "observability": {
+    "enabled": true
+  }
 }
