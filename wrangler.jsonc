@@ -1,12 +1,21 @@
 {
+  // Cloudflare Workers configuration for the ADMS product site.
+  //
+  // This project is deployed as a Workers Static Assets site (no worker
+  // script): `output: 'static'` in astro.config.mjs produces only the
+  // static files under ./dist, which Cloudflare serves directly from
+  // the edge. There is intentionally NO `main` field — adding one makes
+  // the Cloudflare Vite plugin look for a worker entry point that this
+  // project does not produce, which fails the build.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adapdev-adms-site",
-  "main": "./dist/_worker.js/index.js",
   "compatibility_date": "2026-11-16",
   "compatibility_flags": ["nodejs_compat"],
 
-  // Bind this Worker to the /adms path on your existing zone.
-  // The trailing /* is critical — without it only the exact /adms URL matches.
+  // Bind this project to the /adms path on the apex zone. Two patterns
+  // are required: `/adms` matches the bare path, `/adms/*` matches
+  // everything below it. Cloudflare's `*` matches one-or-more chars,
+  // not zero-or-more, so a single `/adms/*` pattern would miss `/adms`.
   "routes": [
     {
       "pattern": "adapdev.com.au/adms",
@@ -18,12 +27,14 @@
     }
   ],
 
-  // Static assets (Astro's client output)
-//  "assets": {
-//    "directory": "./dist",
-//    "binding": "ASSETS",
-//    "not_found_handling": "single-page-application" // or "404-page" for MPA
-//  },
+  // Static assets served directly by the Workers runtime. `not_found_handling`
+  // is set to "404-page" because this is a multi-page static site (Astro MPA),
+  // not a client-rendered SPA — we want real 404 responses for unknown paths,
+  // not an SPA fallback.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
 
   "observability": {
     "enabled": true
