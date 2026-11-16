@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adapdev-adms-site",
   "main": "./dist/_worker.js/index.js",
-  "compatibility_date": "2026-11-01",
+  "compatibility_date": "2026-11-16",
   "compatibility_flags": ["nodejs_compat"],
 
   // Bind this Worker to the /adms path on your existing zone.
@@ -19,11 +19,11 @@
   ],
 
   // Static assets (Astro's client output)
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application" // or "404-page" for MPA
-  },
+//  "assets": {
+//    "directory": "./dist",
+//    "binding": "ASSETS",
+//    "not_found_handling": "single-page-application" // or "404-page" for MPA
+//  },
 
   "observability": {
     "enabled": true
